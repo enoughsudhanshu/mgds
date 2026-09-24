@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Edit Item{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="card-title mb-4">Edit Donation</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Item Name</label>
+                        <input type="text" name="item_name" class="form-control" value="{{ item.item_name }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select name="category" class="form-select" required>
+                            <option value="medicine" {% if item.category == 'medicine' %}selected{% endif %}>Medicine</option>
+                            <option value="goods" {% if item.category == 'goods' %}selected{% endif %}>Goods</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Expiry Date</label>
+                        <input type="date" name="expiry_date" class="form-control" value="{{ item.expiry_date }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Replace Photo (optional)</label>
+                        <input type="file" name="image" class="form-control" accept="image/*">
+                        {% if item.image_path %}
+                        <small class="text-muted">Current: {{ item.image_path }}</small>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Update</button>
+                </form>
+                <a href="{{ url_for('donor.dashboard') }}" class="btn btn-link mt-2">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
