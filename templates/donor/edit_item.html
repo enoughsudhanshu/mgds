@@ -1,0 +1,74 @@
+{% extends "base.html" %}{% block title %}Edit donation{% endblock %} {% block
+content %}
+<div class="form-shell">
+  <div class="mb-4">
+    <div class="eyebrow text-success">Donor workspace</div>
+    <h1 class="section-title mt-2">Edit donation</h1>
+    <p class="muted">Update your pending donation before it is reviewed.</p>
+  </div>
+  <div class="soft-card form-card">
+    <form method="POST" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label">Item name</label
+        ><input
+          type="text"
+          name="item_name"
+          class="form-control"
+          value="{{ item.item_name }}"
+          required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Category</label
+        ><select name="category" class="form-select" required>
+          <option
+            value="medicine"
+            {%
+            if
+            item.category=="medicine"
+            %}selected{%
+            endif
+            %}>
+            Medicine
+          </option>
+          <option
+            value="goods"
+            {%
+            if
+            item.category=="goods"
+            %}selected{%
+            endif
+            %}>
+            Essential goods
+          </option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Expiry date</label
+        ><input
+          type="date"
+          name="expiry_date"
+          class="form-control"
+          value="{{ item.expiry_date }}" />
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Replace photo</label
+        ><input
+          type="file"
+          name="image"
+          class="form-control"
+          accept="image/*" />{% if item.image_path %}
+        <div class="small muted mt-2">Current file: {{ item.image_path }}</div>
+        {% endif %}
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-brand flex-grow-1">Save changes</button
+        ><a
+          href="{{ url_for('donor.dashboard') }}"
+          class="btn btn-light border rounded-3"
+          >Cancel</a
+        >
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
