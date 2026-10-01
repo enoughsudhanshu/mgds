@@ -1,0 +1,124 @@
+{% extends "base.html" %}{% block title %}Donor dashboard{% endblock %} {% block
+content %}
+<div class="hero mb-4">
+  <div class="row align-items-center">
+    <div class="col-lg-8">
+      <div class="eyebrow mb-2">Donor workspace</div>
+      <h1 class="display-6 mb-2">
+        Welcome back, {{ user.name.split(' ')[0] }}.
+      </h1>
+      <p class="mb-0 opacity-75">
+        Manage your donated medicines and essential goods from one place.
+      </p>
+    </div>
+    <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+      <a
+        href="{{ url_for('donor.add_item') }}"
+        class="btn btn-light fw-bold px-4 py-2 rounded-3"
+        >+ Add donation</a
+      >
+    </div>
+  </div>
+</div>
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="soft-card stat-card">
+      <div class="d-flex justify-content-between">
+        <div>
+          <div class="muted small">Total donations</div>
+          <div class="stat-value mt-2">{{ items|length }}</div>
+        </div>
+        <!-- <div class="stat-icon">📦</div> -->
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="soft-card stat-card">
+      <div class="d-flex justify-content-between">
+        <div>
+          <div class="muted small">Pending review</div>
+          <div class="stat-value mt-2">
+            {{ items|selectattr('status','equalto','pending')|list|length }}
+          </div>
+        </div>
+        <!-- <div class="stat-icon">⏳</div> -->
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="soft-card stat-card">
+      <div class="d-flex justify-content-between">
+        <div>
+          <div class="muted small">Verified</div>
+          <div class="stat-value mt-2">
+            {{ items|selectattr('status','equalto','verified')|list|length }}
+          </div>
+        </div>
+        <!-- <div class="stat-icon">✓</div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h3 class="section-title mb-1">My donations</h3>
+    <div class="muted small">
+      Your submitted items and their current status.
+    </div>
+  </div>
+</div>
+{% if items %}
+<div class="row g-4">
+  {% for item in items %}
+  <div class="col-md-6 col-xl-4">
+    <div class="soft-card item-card">
+      {% if item.image_path %}<img
+        src="{{ url_for('static', filename='uploads/' + item.image_path) }}"
+        class="w-100 item-image" />{% else %}
+      <!-- <div class="item-placeholder">💊</div> -->
+      {% endif %}
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start gap-2">
+          <div>
+            <h5 class="fw-bold mb-1">{{ item.item_name }}</h5>
+            <div class="item-meta">
+              {{ item.category|capitalize }}{% if item.expiry_date %} · Expires
+              {{ item.expiry_date }}{% endif %}
+            </div>
+          </div>
+          <span class="status {{ item.status }}"
+            >{{ item.status|capitalize }}</span
+          >
+        </div>
+        <div class="mobile-actions mt-4">
+          {% if item.status == 'pending' %}<a
+            href="{{ url_for('donor.edit_item', item_id=item.item_id) }}"
+            class="btn btn-soft btn-sm"
+            >Edit</a
+          >
+          <form
+            method="POST"
+            action="{{ url_for('donor.delete_item', item_id=item.item_id) }}"
+            onsubmit="return confirm('Delete this donation?');">
+            <button class="btn btn-danger-soft btn-sm">Delete</button>
+          </form>
+          {% else %}<span class="small muted">No actions available</span>{%
+          endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="soft-card empty-state">
+  <div class="empty-icon">＋</div>
+  <h4 class="fw-bold">No donations yet</h4>
+  <p class="muted">
+    Start by listing a medicine or essential good you would like to donate.
+  </p>
+  <a href="{{ url_for('donor.add_item') }}" class="btn btn-brand"
+    >Add your first donation</a
+  >
+</div>
+{% endif %} {% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}{% block title %}Sign in{% endblock %} {% block content
+%}
+<div class="auth-layout">
+  <div class="row g-0 auth-card w-100" style="max-width: 980px">
+    <div class="col-md-5 auth-side">
+      <div class="eyebrow mb-3">Medicine & Goods Donation System</div>
+      <h1 class="display-6 fw-bold mb-3">
+        Small donations can make a big difference.
+      </h1>
+      <p class="opacity-75">
+        A simple platform for donors, NGOs and hospitals to move useful
+        medicines and essential goods where they are needed.
+      </p>
+      <div class="mt-5">
+        <div class="d-flex gap-3 mb-3">
+          <span>✓</span><span>Secure role-based access</span>
+        </div>
+        <div class="d-flex gap-3 mb-3">
+          <span>✓</span><span>Donation tracking</span>
+        </div>
+        <div class="d-flex gap-3">
+          <span>✓</span><span>Verification workflow</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 auth-form">
+      <div class="mb-4">
+        <div class="eyebrow text-success">Welcome back</div>
+        <h2 class="fw-bold mt-2">Sign in to your account</h2>
+        <p class="muted mb-0">Continue managing your donations and requests.</p>
+      </div>
+      <form method="POST">
+        <div class="mb-3">
+          <label class="form-label">Email address</label
+          ><input
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="you@example.com"
+            required />
+        </div>
+        <div class="mb-4">
+          <label class="form-label">Password</label
+          ><input
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="Enter your password"
+            required />
+        </div>
+        <button class="btn btn-brand w-100">
+          Sign in <span class="ms-1">→</span>
+        </button>
+      </form>
+      <p class="text-center muted mt-4 mb-0">
+        New here?
+        <a
+          class="text-success fw-bold text-decoration-none"
+          href="{{ url_for('auth.register') }}"
+          >Create an account</a
+        >
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

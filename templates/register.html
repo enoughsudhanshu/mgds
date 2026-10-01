@@ -1,0 +1,77 @@
+{% extends "base.html" %}{% block title %}Create account{% endblock %} {% block
+content %}
+<div class="auth-layout">
+  <div class="row g-0 auth-card w-100" style="max-width: 980px">
+    <div class="col-md-5 auth-side">
+      <div class="eyebrow mb-3">Join Medify</div>
+      <h1 class="display-6 fw-bold mb-3">Give useful things a second life.</h1>
+      <p class="opacity-75">
+        Register as a donor, NGO or hospital and take part in a transparent
+        donation workflow.
+      </p>
+      <div
+        class="mt-5 p-3 rounded-4"
+        style="background: rgba(255, 255, 255, 0.1)">
+        <div class="fw-bold mb-1">Who can join?</div>
+        <div class="small opacity-75">
+          Citizens can donate. NGOs and hospitals can receive verified
+          donations.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 auth-form">
+      <div class="mb-4">
+        <div class="eyebrow text-success">Get started</div>
+        <h2 class="fw-bold mt-2">Create your account</h2>
+        <p class="muted mb-0">It only takes a minute.</p>
+      </div>
+      <form method="POST">
+        <div class="mb-3">
+          <label class="form-label">Full name</label
+          ><input
+            type="text"
+            name="name"
+            class="form-control"
+            placeholder="Your full name"
+            required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email address</label
+          ><input
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="you@example.com"
+            required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label
+          ><input
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="Create a password"
+            required />
+        </div>
+        <div class="mb-4">
+          <label class="form-label d-block">Register as</label
+          ><select name="role" class="form-select" required>
+            <option value="donor">Donor</option>
+            <option value="ngo">NGO</option>
+            <option value="hospital">Hospital</option>
+          </select>
+        </div>
+        <button class="btn btn-brand w-100">Create account →</button>
+      </form>
+      <p class="text-center muted mt-4 mb-0">
+        Already registered?
+        <a
+          class="text-success fw-bold text-decoration-none"
+          href="{{ url_for('auth.login') }}"
+          >Sign in</a
+        >
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

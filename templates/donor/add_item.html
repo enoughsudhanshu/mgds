@@ -1,0 +1,59 @@
+{% extends "base.html" %}{% block title %}Add donation{% endblock %} {% block
+content %}
+<div class="form-shell">
+  <div class="mb-4">
+    <div class="eyebrow text-success">Donor workspace</div>
+    <h1 class="section-title mt-2">Add a new donation</h1>
+    <p class="muted">
+      Tell us what you have available. Your submission will start as pending for
+      review.
+    </p>
+  </div>
+  <div class="soft-card form-card">
+    <form method="POST" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label">Item name</label
+        ><input
+          type="text"
+          name="item_name"
+          class="form-control"
+          placeholder="e.g. Paracetamol 500mg"
+          required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Category</label
+        ><select name="category" class="form-select" required>
+          <option value="medicine">Medicine</option>
+          <option value="goods">Essential goods</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"
+          >Expiry date
+          <span class="muted fw-normal">(if applicable)</span></label
+        ><input type="date" name="expiry_date" class="form-control" />
+      </div>
+      <div class="mb-4">
+        <label class="form-label"
+          >Photo <span class="muted fw-normal">(optional)</span></label
+        ><input
+          type="file"
+          name="image"
+          class="form-control"
+          accept="image/*" />
+        <div class="small muted mt-2">
+          A clear photo helps reviewers identify the item.
+        </div>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-brand flex-grow-1">Submit donation</button
+        ><a
+          href="{{ url_for('donor.dashboard') }}"
+          class="btn btn-light border rounded-3"
+          >Cancel</a
+        >
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
